@@ -27,3 +27,10 @@
 *.exe
 *.out
 *.app
+
+ARM/
+Debug/
+Document/
+ipch/
+*_org
+*.db
