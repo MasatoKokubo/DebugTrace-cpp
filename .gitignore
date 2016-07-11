@@ -34,3 +34,4 @@ Document/
 ipch/
 *_org
 *.db
+*.opendb

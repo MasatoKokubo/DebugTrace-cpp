@@ -9,13 +9,13 @@
 #include "DebugTrace.hpp"
 
 // The library name and version c-string
-const char* DebugTrace::_libraryName = "DebugTrace.cpp14 0.1.0";
+const char* DebugTrace::_libraryName = "DebugTrace.cpp14 0.1.1";
 
 // The enter c-string
-const char* DebugTrace::_enterString = "";
+const char* DebugTrace::_enterString = "Enter ";
 
 // The leave c-string
-const char* DebugTrace::_leaveString = "";
+const char* DebugTrace::_leaveString = "Leave ";
 
 // The separator c-string of name and value
 const char* DebugTrace::_separator   = " = ";
