@@ -2,14 +2,13 @@
 //
 //	(C) 2016 Masato Kokubo
 #include "pch.h"
-#include <string>
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
 #include "DebugTrace.hpp"
 
 // The library name and version c-string
-const char* DebugTrace::_libraryName = "DebugTrace.cpp14 0.1.1";
+const char* DebugTrace::_libraryName = "DebugTrace-cpp 0.2.0";
 
 // The enter c-string
 const char* DebugTrace::_enterString = "Enter ";

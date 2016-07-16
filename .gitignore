@@ -28,10 +28,12 @@
 *.out
 *.app
 
-ARM/
-Debug/
-Document/
-ipch/
-*_org
-*.db
-*.opendb
+doxygen/Document/
+windows/ARM/
+windows/Debug/
+windows/x64/
+windows/ipch/
+windows/*.db
+windows/*.opendb
+doxygen/*_org
+windows/.vs/

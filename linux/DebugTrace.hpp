@@ -2,7 +2,9 @@
 //
 //	(C) 2016 Masato Kokubo
 #pragma once
-#pragma message("    include DebugTrace.hpp start")
+#if defined _MSC_VER
+	#pragma message("    include DebugTrace.hpp start")
+#endif
 
 #include <algorithm>
 #include <array>
@@ -12,7 +14,13 @@
 #include <map>
 #include <memory>
 #include <set>
-#include <string>
+#if defined _MSC_VER
+	#include <string>
+#else
+	namespace std {
+		#include <string.h>
+	}
+#endif
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -468,4 +476,6 @@ std::ostream& operator <<(std::ostream& stream, const std::vector<E>& vector) no
 	return stream << "]";
 }
 
-#pragma message("    include DebugTrace.hpp end")
+#if defined _MSC_VER
+	#pragma message("    include DebugTrace.hpp end")
+#endif
