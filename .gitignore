@@ -37,3 +37,4 @@ windows/*.db
 windows/*.opendb
 doxygen/*_org
 windows/.vs/
+macos/DerivedData/
