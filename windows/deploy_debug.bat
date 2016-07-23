@@ -1,5 +1,10 @@
 @echo off
-xcopy src\DebugTrace.hpp                  C:\Library     /DFY
-xcopy     Debug\DebugTrace\DebugTrace.lib C:\Library\x86 /DFY
-xcopy x64\Debug\DebugTrace\DebugTrace.lib C:\Library\x64 /DFY
-xcopy ARM\Debug\DebugTrace\DebugTrace.lib C:\Library\ARM /DFY
+xcopy src\DebugTrace.hpp                  C:\Library     /DFRY
+xcopy     Debug\DebugTrace\DebugTrace.lib C:\Library\x86 /DFRY
+xcopy x64\Debug\DebugTrace\DebugTrace.lib C:\Library\x64 /DFRY
+xcopy ARM\Debug\DebugTrace\DebugTrace.lib C:\Library\ARM /DFRY
+
+attrib +r C:\Library\DebugTrace.hpp
+attrib +r C:\Library\x86\DebugTrace.lib
+attrib +r C:\Library\x64\DebugTrace.lib
+attrib +r C:\Library\ARM\DebugTrace.lib
