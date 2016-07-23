@@ -86,14 +86,14 @@ const char* DebugTrace::indent() noexcept {
 
 // Outputs the date and time to stderr.
 void DebugTrace::printDateTime() noexcept {
-	std::time_t now = std::time(nullptr);
+	auto now = std::time(nullptr);
 #if defined(_MSC_VER)
 	// Visual C++
 	struct std::tm dateTime;
 	localtime_s(&dateTime, &now);
 #else
 	// Other
-	struct std::tm dateTime = *std::localtime(&now);
+	auto dateTime = *std::localtime(&now);
 #endif
 	_stream
 		                                     << dateTime.tm_year + 1900 << '-'

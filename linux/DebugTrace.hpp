@@ -353,7 +353,7 @@
 	std::ostream& operator <<(std::ostream& stream, const std::array<E, N>& array) noexcept {
 		stream << '[';
 
-		const char* delimiter = "";
+		auto delimiter = "";
 		std::for_each(array.cbegin(), array.cend(),
 			[&](const E& element) {
 				stream << delimiter << element;
@@ -374,7 +374,7 @@
 	std::ostream& operator <<(std::ostream& stream, const std::deque<E>& deque) noexcept {
 		stream << '[';
 
-		const char* delimiter = "";
+		auto delimiter = "";
 		std::for_each(deque.cbegin(), deque.cend(),
 			[&](const E& element) {
 				stream << delimiter << element;
@@ -395,7 +395,7 @@
 	std::ostream& operator <<(std::ostream& stream, const std::list<E>& list) noexcept {
 		stream << '[';
 
-		const char* delimiter = "";
+		auto delimiter = "";
 		std::for_each(list.cbegin(), list.cend(),
 			[&](const E& element) {
 				stream << delimiter << element;
@@ -416,7 +416,7 @@
 	std::ostream& operator <<(std::ostream& stream, const std::map<K, V>& map) noexcept {
 		stream << '[';
 
-		const char* delimiter = "";
+		auto delimiter = "";
 		std::for_each(map.cbegin(), map.cend(),
 			[&](const std::pair<K, V>& element) {
 				stream << delimiter << element;
@@ -437,7 +437,7 @@
 	std::ostream& operator <<(std::ostream& stream, const std::unordered_map<K, V>& map) noexcept {
 		stream << '[';
 
-		const char* delimiter = "";
+		auto delimiter = "";
 		std::for_each(map.cbegin(), map.cend(),
 			[&](const std::pair<K, V>& element) {
 				stream << delimiter << element;
@@ -458,7 +458,7 @@
 	std::ostream& operator <<(std::ostream& stream, const std::set<E>& set) noexcept {
 		stream << '[';
 
-		const char* delimiter = "";
+		auto delimiter = "";
 		std::for_each(set.cbegin(), set.cend(),
 			[&](const E& element) {
 				stream << delimiter << element;
@@ -479,7 +479,7 @@
 	std::ostream& operator <<(std::ostream& stream, const std::unordered_set<E>& set) noexcept {
 		stream << '[';
 
-		const char* delimiter = "";
+		auto delimiter = "";
 		std::for_each(set.cbegin(), set.cend(),
 			[&](const E& element) {
 				stream << delimiter << element;
@@ -500,7 +500,7 @@
 	std::ostream& operator <<(std::ostream& stream, const std::vector<E>& vector) noexcept {
 		stream << '[';
 
-		const char* delimiter = "";
+		auto delimiter = "";
 		std::for_each(vector.cbegin(), vector.cend(),
 			[&](const E& element) {
 				stream << delimiter << element;
