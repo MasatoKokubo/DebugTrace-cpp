@@ -1,6 +1,6 @@
 ﻿//	DebugTrace.hpp
 //
-//	(c) 2016 Masato Kokubo
+//	(C) 2016 Masato Kokubo
 #pragma once
 #if defined _MSC_VER
 	#pragma message("    include DebugTrace.hpp start")

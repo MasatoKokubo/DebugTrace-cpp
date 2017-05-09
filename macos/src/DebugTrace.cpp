@@ -1,6 +1,6 @@
 ﻿//	DebugTrace.cpp
 //
-//	(c) 2016 Masato Kokubo
+//	(C) 2016 Masato Kokubo
 #include "pch.h"
 #include <cstdlib>
 #include <ctime>
