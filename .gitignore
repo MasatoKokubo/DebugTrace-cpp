@@ -41,3 +41,4 @@ macos/DerivedData/
 *.png
 *.db
 .vs/
+windows/Release/
