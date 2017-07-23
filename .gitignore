@@ -28,17 +28,10 @@
 *.out
 *.app
 
-doxygen/Document/
-windows/ARM/
-windows/Debug/
-windows/x64/
-windows/ipch/
-windows/*.db
-windows/*.opendb
-doxygen/*_org
-windows/.vs/
-macos/DerivedData/
-*.png
+# etc.
+Example/linux/Debug/
 *.db
-.vs/
-windows/Release/
+Example/windows/.vs/
+Example/windows/ipch/
+Example/windows/x64/
+READMEexample/
