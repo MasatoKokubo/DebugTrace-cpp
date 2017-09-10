@@ -1,4 +1,4 @@
-﻿/// DebugTrace.hpp
+﻿/// DebugTrace-cpp 1.0.1
 /// (C) 2017 Masato Kokubo
 #ifndef DBUEGTRACE_HPP_
 #define DBUEGTRACE_HPP_
@@ -62,7 +62,7 @@ namespace debugtrace {
 class DebugTrace {
 private:
 
-	static constexpr char const* libraryName       () {return "DebugTrace-cpp 1.0.0";}
+	static constexpr char const* libraryName       () {return "DebugTrace-cpp 1.0.1";}
 	static constexpr char const* enterString       () {return "Enter ";}
 	static constexpr char const* leaveString       () {return "Leave ";}
 	static constexpr char const* codeIndentString  () {return "| ";}
@@ -228,6 +228,20 @@ private:
 		stream() << std::endl;
 		printDateTime();
 		printIndent();
+	}
+
+	/// Outputs a string representation of the value.
+	/// @param pointer the pointer of the value to output
+	/// @since 1.0.1
+	template <typename T>
+	static void printValue(T const* pointer) noexcept {
+		printType(pointer);
+		if (pointer == nullptr)
+			stream() << "nullptr";
+		else {
+			stream() << '&';
+			printValue(*pointer);
+		}
 	}
 
 	/// Outputs a string representation of the value.

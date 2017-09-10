@@ -1,6 +1,8 @@
 DebugTrace-cpp
 ==============
 
+[[English]](README.md)
+
 DebugTrace-cpp は、デバッグ用のログを出力するための C++14 ライブラリです。  
 DebugTrace-cpp.zip をダウンロードし、この中に含まれている DebugTrace.hpp をインクルードするだけで使用できます。  
 ヘッダーファイルだけのライブラリで、リンクするファイル (*.lib, *.a など) はありません。  
@@ -19,13 +21,11 @@ C++ コンパイラは、C++14 が必要です。
 
 #### 使用例
 ```
-#if defined _MSC_VER
-    #include "stdafx.h"
-#endif
+#include "stdafx.h"
 #include "DebugTrace.hpp"
 #include <vector>
 
-DEBUG_TRACE_STATIC // いずれかのソースのみに記述
+DEBUG_TRACE_STATIC // Describe in only one source.
 
 template <typename T> class Point {
     private:
@@ -48,10 +48,12 @@ void sub() {
     Point<int> p1 = Point<int>(1, 2);
     Point<int> p2 = Point<int>(3, 4);
     Point<int> p3 = p1 + p2;
+    Point<int> const* pp = &p3;
     std::vector<Point<int>> v = {p1, p2, p3};
     DEBUG_PRINT(p1)
     DEBUG_PRINT(p2)
     DEBUG_PRINT(p3)
+    DEBUG_PRINT(pp)
     DEBUG_PRINT(v)
 }
 
@@ -66,54 +68,57 @@ int main() {
 
 #### 実行例 (Linux / GCC 6.3.0)
 ```
-2017-07-23 14:52:40 DebugTrace-cpp 1.0.0
-2017-07-23 14:52:40 
-2017-07-23 14:52:40 Enter main (READMEexample.cpp:38)
-2017-07-23 14:52:40 | Enter sub (READMEexample.cpp:26)
-2017-07-23 14:52:40 | | p1 = (Point<int>)(x:1, y:2) (READMEexample.cpp:31)
-2017-07-23 14:52:40 | | p2 = (Point<int>)(x:3, y:4) (READMEexample.cpp:32)
-2017-07-23 14:52:40 | | p3 = (Point<int>)(x:4, y:6) (READMEexample.cpp:33)
-2017-07-23 14:52:40 | | v = (std::vector<Point<int>, std::allocator<Point<int> > >){
-2017-07-23 14:52:40 | |   (Point<int>)(x:1, y:2), 
-2017-07-23 14:52:40 | |   (Point<int>)(x:3, y:4), 
-2017-07-23 14:52:40 | |   (Point<int>)(x:4, y:6)
-2017-07-23 14:52:40 | | } (READMEexample.cpp:34)
-2017-07-23 14:52:40 | Leave sub
-2017-07-23 14:52:40 Leave main
+2017-09-10 14:21:09 DebugTrace-cpp 1.0.1
+2017-09-10 14:21:09
+2017-09-10 14:21:09 Enter main (READMEexample.cpp:38)
+2017-09-10 14:21:09 | Enter sub (READMEexample.cpp:24)
+2017-09-10 14:21:09 | | p1 = (Point<int>)(x:1, y:2) (READMEexample.cpp:30)
+2017-09-10 14:21:09 | | p2 = (Point<int>)(x:3, y:4) (READMEexample.cpp:31)
+2017-09-10 14:21:09 | | p3 = (Point<int>)(x:4, y:6) (READMEexample.cpp:32)
+2017-09-10 14:21:09 | | pp = (Point<int> const*)&(Point<int>)(x:4, y:6) (READMEexample.cpp:33)
+2017-09-10 14:21:09 | | v = (std::__1::vector<Point<int>, std::__1::allocator<Point<int> > >){
+2017-09-10 14:21:09 | | (Point<int>)(x:1, y:2),
+2017-09-10 14:21:09 | | (Point<int>)(x:3, y:4),
+2017-09-10 14:21:09 | | (Point<int>)(x:4, y:6)
+2017-09-10 14:21:09 | | } (READMEexample.cpp:34)
+2017-09-10 14:21:09 | Leave sub
+2017-09-10 14:21:09 Leave main
 ```
 
 #### 実行例 (macOS / Xcode 8.3.3)
 ```
-2017-07-23 16:12:05 DebugTrace-cpp 1.0.0
-2017-07-23 16:12:05 
-2017-07-23 16:12:05 Enter main (READMEexample.cpp:38)
-2017-07-23 16:12:05 | Enter sub (READMEexample.cpp:26)
-2017-07-23 16:12:05 | | p1 = (Point<int>)(x:1, y:2) (READMEexample.cpp:31)
-2017-07-23 16:12:05 | | p2 = (Point<int>)(x:3, y:4) (READMEexample.cpp:32)
-2017-07-23 16:12:05 | | p3 = (Point<int>)(x:4, y:6) (READMEexample.cpp:33)
-2017-07-23 16:12:05 | | v = (std::__1::vector<Point<int>, std::__1::allocator<Point<int> > >){
-2017-07-23 16:12:05 | |   (Point<int>)(x:1, y:2), 
-2017-07-23 16:12:05 | |   (Point<int>)(x:3, y:4), 
-2017-07-23 16:12:05 | |   (Point<int>)(x:4, y:6)
-2017-07-23 16:12:05 | | } (READMEexample.cpp:34)
-2017-07-23 16:12:05 | Leave sub
-2017-07-23 16:12:05 Leave main
+2017-09-10 14:21:09 DebugTrace-cpp 1.0.1
+2017-09-10 14:21:09
+2017-09-10 14:21:09 Enter main (READMEexample.cpp:38)
+2017-09-10 14:21:09 | Enter sub (READMEexample.cpp:24)
+2017-09-10 14:21:09 | | p1 = (Point<int>)(x:1, y:2) (READMEexample.cpp:30)
+2017-09-10 14:21:09 | | p2 = (Point<int>)(x:3, y:4) (READMEexample.cpp:31)
+2017-09-10 14:21:09 | | p3 = (Point<int>)(x:4, y:6) (READMEexample.cpp:32)
+2017-09-10 14:21:09 | | pp = (Point<int> const*)&(Point<int>)(x:4, y:6) (READMEexample.cpp:33)
+2017-09-10 14:21:09 | | v = (std::__1::vector<Point<int>, std::__1::allocator<Point<int> > >){
+2017-09-10 14:21:09 | | (Point<int>)(x:1, y:2),
+2017-09-10 14:21:09 | | (Point<int>)(x:3, y:4),
+2017-09-10 14:21:09 | | (Point<int>)(x:4, y:6)
+2017-09-10 14:21:09 | | } (READMEexample.cpp:34)
+2017-09-10 14:21:09 | Leave sub
+2017-09-10 14:21:09 Leave main
 ```
 
 #### 実行例 (Windows / Visual C++ 2017)
 ```
-2017-07-23 15:12:27 DebugTrace-cpp 1.0.0
-2017-07-23 15:12:27
-2017-07-23 15:12:27 Enter int __cdecl main(void) (readmeexample.cpp:38)
-2017-07-23 15:12:27 | Enter void __cdecl sub(void) (readmeexample.cpp:26)
-2017-07-23 15:12:27 | | p1 = (class Point<int>)(x:1, y:2) (readmeexample.cpp:31)
-2017-07-23 15:12:27 | | p2 = (class Point<int>)(x:3, y:4) (readmeexample.cpp:32)
-2017-07-23 15:12:27 | | p3 = (class Point<int>)(x:4, y:6) (readmeexample.cpp:33)
-2017-07-23 15:12:27 | | v = (class std::vector<class Point<int>,class std::allocator<class Point<int> > >){
-2017-07-23 15:12:27 | |   (class Point<int>)(x:1, y:2),
-2017-07-23 15:12:27 | |   (class Point<int>)(x:3, y:4),
-2017-07-23 15:12:27 | |   (class Point<int>)(x:4, y:6)
-2017-07-23 15:12:27 | | } (readmeexample.cpp:34)
-2017-07-23 15:12:27 | Leave void __cdecl sub(void)
-2017-07-23 15:12:27 Leave int __cdecl main(void)
+2017-09-10 13:52:09 DebugTrace-cpp 1.0.1
+2017-09-10 13:52:09
+2017-09-10 13:52:09 Enter int __cdecl main(void) (readmeexample.cpp:38)
+2017-09-10 13:52:09 | Enter void __cdecl sub(void) (readmeexample.cpp:24)
+2017-09-10 13:52:09 | | p1 = (class Point<int>)(x:1, y:2) (readmeexample.cpp:30)
+2017-09-10 13:52:09 | | p2 = (class Point<int>)(x:3, y:4) (readmeexample.cpp:31)
+2017-09-10 13:52:09 | | p3 = (class Point<int>)(x:4, y:6) (readmeexample.cpp:32)
+2017-09-10 13:52:09 | | pp = (class Point<int> const * __ptr64)&(class Point<int>)(x:4, y:6) (readmeexample.cpp:33)
+2017-09-10 13:52:09 | | v = (class std::vector<class Point<int>,class std::allocator<class Point<int> > >){
+2017-09-10 13:52:09 | |   (class Point<int>)(x:1, y:2),
+2017-09-10 13:52:09 | |   (class Point<int>)(x:3, y:4),
+2017-09-10 13:52:09 | |   (class Point<int>)(x:4, y:6)
+2017-09-10 13:52:09 | | } (readmeexample.cpp:34)
+2017-09-10 13:52:09 | Leave void __cdecl sub(void)
+2017-09-10 13:52:09 Leave int __cdecl main(void)
 ```

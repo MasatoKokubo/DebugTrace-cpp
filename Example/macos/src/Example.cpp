@@ -1,9 +1,6 @@
 ﻿/// Example.cpp 
 /// (C) 2017 Masato Kokubo
-#if defined _MSC_VER
-	#include "stdafx.h"
-#endif
-
+#include "stdafx.h"
 #include "Example.hpp"
 #include "DebugTrace.hpp"
 
