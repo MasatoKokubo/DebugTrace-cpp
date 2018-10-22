@@ -29,9 +29,15 @@
 *.app
 
 # etc.
-Example/linux/Debug/
 *.db
+
+Example/linux/Debug/
+
 Example/windows/.vs/
 Example/windows/ipch/
 Example/windows/x64/
+
+Example/macos/DebugTraceExample.xcodeproj/project.xcworkspace/
+Example/macos/DebugTraceExample.xcodeproj/xcuserdata/
+
 READMEexample/

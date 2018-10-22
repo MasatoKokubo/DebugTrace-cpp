@@ -7,11 +7,11 @@
 DEBUG_TRACE_STATIC
 
 int main(int argc, char const* argv[]) {
-/**/DEBUG_TRACE
-	ClassA classA;
-	classA.func1();
-	classA.func2();
-	classA.func3();
-	classA.func4();
-	return 0;
+    DEBUG_TRACE // for Debugging
+    ClassA classA;
+    classA.func1();
+    classA.func2();
+    classA.func3();
+    classA.func4();
+    return 0;
 }

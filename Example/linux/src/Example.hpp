@@ -6,55 +6,55 @@
 
 /// Point
 template <typename T> class Point {
-	private:
-		T _x = 0; // X value
-		T _y = 0; // Y value
+    private:
+        T _x = 0; // X value
+        T _y = 0; // Y value
 
-	public:
-		// Default Constructor
-		Point() = default;
+    public:
+        // Default Constructor
+        Point() = default;
 
-		// Constructor
-		Point(T const& v) noexcept : _x(v), _y(v) {
-		}
+        // Constructor
+        Point(T const& v) noexcept : _x(v), _y(v) {
+        }
 
-		// Constructor
-		Point(T const& x, T const& y) noexcept : _x(x), _y(y) {
-		}
+        // Constructor
+        Point(T const& x, T const& y) noexcept : _x(x), _y(y) {
+        }
 
-		// Copy Constructor
-		Point(Point<T> const& p) noexcept : Point(p._x, p._y) {
-		}
+        // Copy Constructor
+        Point(Point<T> const& p) noexcept : Point(p._x, p._y) {
+        }
 
-		// Destructor
-		~Point() = default;
+        // Destructor
+        ~Point() = default;
 
-		// Assignment Operator
-		Point& operator =(Point<T> const& p) noexcept {
-			_x = p._x;
-			_x = p._x;
-			return *this;
-		}
+        // Assignment Operator
+        Point& operator =(Point<T> const& p) noexcept {
+            _x = p._x;
+            _x = p._x;
+            return *this;
+        }
 
-		// Returns the X value.
-		auto x() const noexcept {return _x;}
+        // Returns the X value.
+        auto x() const noexcept {return _x;}
 
-		// Returns the Y value.
-		auto y() const noexcept {return _y;}
+        // Returns the Y value.
+        auto y() const noexcept {return _y;}
 
-		// Transposes the X and Y value.
-		auto transpose() const noexcept {return Point<T>(_y, _x);}
+        // Transposes the X and Y value.
+        auto transpose() const noexcept {return Point<T>(_y, _x);}
 
-		// Returns a point created from the minimum value of each of the X and Y value.
-		static constexpr auto min() {return Point<T>(std::numeric_limits<T>::min());}
+        // Returns a point created from the minimum value of each of the X and Y value.
+        static constexpr auto min() {return Point<T>(std::numeric_limits<T>::min());}
 
-		// Returns a point created from the maximum value of each of X and Y values.
-		static constexpr auto max() {return Point<T>(std::numeric_limits<T>::max());}
+        // Returns a point created from the maximum value of each of X and Y values.
+        static constexpr auto max() {return Point<T>(std::numeric_limits<T>::max());}
 
-		/// Reutrns the hash value.
-		size_t hash() const {
-			return (size_t)(_x * 31 + _y);
-		}
+        /// Reutrns the hash value.
+        size_t hash() const {
+            return (size_t)(_x * 31 + _y);
+        }
 };
 
 // Unary operators
@@ -89,25 +89,25 @@ template <typename T> auto max(Point<T> const& p1, Point<T> const& p2) noexcept 
 
 // Stream output
 template <typename T> std::ostream& operator <<(std::ostream& stream, Point<T> const& p) {
-	return stream << "(x:" << p.x() << ", y:" << p.y() << ')';
+    return stream << "(x:" << p.x() << ", y:" << p.y() << ')';
 }
 
 namespace std {
-	template <typename T> struct hash<Point<T>> {
-	//	typedef Point<T> argument_type;
-	//	typedef size_t result_type;
+    template <typename T> struct hash<Point<T>> {
+    //    typedef Point<T> argument_type;
+    //    typedef size_t result_type;
 
-		size_t operator()(Point<T> const& key) const {
-			return key.hash();
-		}
-	};
+        size_t operator()(Point<T> const& key) const {
+            return key.hash();
+        }
+    };
 }
 
 // ClassA
 class ClassA {
-	public:
-		void func1() const noexcept;
-		void func2() const noexcept;
-		void func3() const noexcept;
-		void func4() const noexcept;
+    public:
+        void func1() const noexcept;
+        void func2() const noexcept;
+        void func3() const noexcept;
+        void func4() const noexcept;
 };
