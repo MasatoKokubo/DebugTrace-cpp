@@ -9,7 +9,7 @@ void ClassA::func1() const noexcept {
     DEBUG_TRACE // for Debugging
     bool const         bool0   = false;
     bool               bool1   = true;
-    char const         char1   = 'A';
+    const char         char1   = 'A';
     signed char        schar1  = 'B';
     unsigned char      uchar1  = 'C';
     short const        short1  = -1;
@@ -18,13 +18,13 @@ void ClassA::func1() const noexcept {
     int const          int1    = -11;
     signed int         sint1   = -22;
     unsigned int       uint1   =  22;
-    long const         long1   = -111L;
+    const long         long1   = -111L;
     signed long        slong1  = -222L;
     unsigned long      ulong1  =  222L;
-    long long const    llong1  = -1111LL;
+    const long long    llong1  = -1111LL;
     signed long long   sllong1 = -2222LL;
     unsigned long long ullong1 =  2222LL;
-    float const        float1  = -11.11F;
+    const float        float1  = -11.11F;
     double             double1 = -2222.2222;
     long double        ldouble1 = -333333.333333L;
 

@@ -14,7 +14,7 @@ void ClassA::func4() const noexcept {
     DEBUG_PRINT(fcomplex1) // for Debugging
 
     // std::complex<double>
-    std::complex<double> const dcomplex1(1.23456, 3.45678);
+    const std::complex<double> dcomplex1(1.23456, 3.45678);
     DEBUG_PRINT(dcomplex1) // for Debugging
 
     // std::complex<long double>

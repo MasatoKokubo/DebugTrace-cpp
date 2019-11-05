@@ -15,22 +15,22 @@ template <typename T> class Point {
         Point() = default;
 
         // Constructor
-        Point(T const& v) noexcept : _x(v), _y(v) {
+        Point(const T& v) noexcept : _x(v), _y(v) {
         }
 
         // Constructor
-        Point(T const& x, T const& y) noexcept : _x(x), _y(y) {
+        Point(const T& x, const T& y) noexcept : _x(x), _y(y) {
         }
 
         // Copy Constructor
-        Point(Point<T> const& p) noexcept : Point(p._x, p._y) {
+        Point(const Point<T>& p) noexcept : Point(p._x, p._y) {
         }
 
         // Destructor
         ~Point() = default;
 
         // Assignment Operator
-        Point& operator =(Point<T> const& p) noexcept {
+        Point& operator =(const Point<T>& p) noexcept {
             _x = p._x;
             _x = p._x;
             return *this;
@@ -58,37 +58,37 @@ template <typename T> class Point {
 };
 
 // Unary operators
-template <typename T> auto operator +(Point<T> const& p) noexcept {return p;}
-template <typename T> auto operator -(Point<T> const& p) noexcept {return Point<T>(-p.x(), -p.y());}
+template <typename T> auto operator +(const Point<T>& p) noexcept {return p;}
+template <typename T> auto operator -(const Point<T>& p) noexcept {return Point<T>(-p.x(), -p.y());}
 
 // Binary operators
-template <typename T> auto operator +(Point<T> const& p, T v) noexcept {return Point<T>(p.x() + v, p.y() + v);}
-template <typename T> auto operator -(Point<T> const& p, T v) noexcept {return Point<T>(p.x() - v, p.y() - v);}
-template <typename T> auto operator *(Point<T> const& p, T v) noexcept {return Point<T>(p.x() * v, p.y() * v);}
-template <typename T> auto operator /(Point<T> const& p, T v) noexcept {return Point<T>(p.x() / v, p.y() / v);}
-template <typename T> auto operator %(Point<T> const& p, T v) noexcept {return Point<T>(p.x() % v, p.y() % v);}
+template <typename T> auto operator +(const Point<T>& p, T v) noexcept {return Point<T>(p.x() + v, p.y() + v);}
+template <typename T> auto operator -(const Point<T>& p, T v) noexcept {return Point<T>(p.x() - v, p.y() - v);}
+template <typename T> auto operator *(const Point<T>& p, T v) noexcept {return Point<T>(p.x() * v, p.y() * v);}
+template <typename T> auto operator /(const Point<T>& p, T v) noexcept {return Point<T>(p.x() / v, p.y() / v);}
+template <typename T> auto operator %(const Point<T>& p, T v) noexcept {return Point<T>(p.x() % v, p.y() % v);}
 
-template <typename T> auto operator +(Point<T> const& p1, Point<T> const& p2) noexcept {return Point<T>(p1.x() + p2.x(), p1.y() + p2.y());}
-template <typename T> auto operator -(Point<T> const& p1, Point<T> const& p2) noexcept {return Point<T>(p1.x() - p2.x(), p1.y() - p2.y());}
-template <typename T> auto operator *(Point<T> const& p1, Point<T> const& p2) noexcept {return Point<T>(p1.x() * p2.x(), p1.y() * p2.y());}
-template <typename T> auto operator /(Point<T> const& p1, Point<T> const& p2) noexcept {return Point<T>(p1.x() / p2.x(), p1.y() / p2.y());}
-template <typename T> auto operator %(Point<T> const& p1, Point<T> const& p2) noexcept {return Point<T>(p1.x() % p2.x(), p1.y() % p2.y());}
+template <typename T> auto operator +(const Point<T>& p1, const Point<T>& p2) noexcept {return Point<T>(p1.x() + p2.x(), p1.y() + p2.y());}
+template <typename T> auto operator -(const Point<T>& p1, const Point<T>& p2) noexcept {return Point<T>(p1.x() - p2.x(), p1.y() - p2.y());}
+template <typename T> auto operator *(const Point<T>& p1, const Point<T>& p2) noexcept {return Point<T>(p1.x() * p2.x(), p1.y() * p2.y());}
+template <typename T> auto operator /(const Point<T>& p1, const Point<T>& p2) noexcept {return Point<T>(p1.x() / p2.x(), p1.y() / p2.y());}
+template <typename T> auto operator %(const Point<T>& p1, const Point<T>& p2) noexcept {return Point<T>(p1.x() % p2.x(), p1.y() % p2.y());}
 
 // Comparison operators
-template <typename T> auto operator ==(Point<T> const& p1, Point<T> const& p2) noexcept {return p1.x() == p2.x() && p1.y() == p2.y();}
-template <typename T> auto operator !=(Point<T> const& p1, Point<T> const& p2) noexcept {return p1.x() != p2.x() || p1.y() != p2.y();}
-template <typename T> auto operator < (Point<T> const& p1, Point<T> const& p2) noexcept {return p1.y() <  p2.y() || p1.y() == p2.y() && p1.x() <  p2.x();}
-template <typename T> auto operator <=(Point<T> const& p1, Point<T> const& p2) noexcept {return p1.y() <  p2.y() || p1.y() == p2.y() && p1.x() <= p2.x();}
-template <typename T> auto operator > (Point<T> const& p1, Point<T> const& p2) noexcept {return p1.y() >  p2.y() || p1.y() == p2.y() && p1.x() >  p2.x();}
-template <typename T> auto operator >=(Point<T> const& p1, Point<T> const& p2) noexcept {return p1.y() >  p2.y() || p1.y() == p2.y() && p1.x() >= p2.x();}
+template <typename T> auto operator ==(const Point<T>& p1, const Point<T>& p2) noexcept {return p1.x() == p2.x() && p1.y() == p2.y();}
+template <typename T> auto operator !=(const Point<T>& p1, const Point<T>& p2) noexcept {return p1.x() != p2.x() || p1.y() != p2.y();}
+template <typename T> auto operator < (const Point<T>& p1, const Point<T>& p2) noexcept {return p1.y() <  p2.y() || p1.y() == p2.y() && p1.x() <  p2.x();}
+template <typename T> auto operator <=(const Point<T>& p1, const Point<T>& p2) noexcept {return p1.y() <  p2.y() || p1.y() == p2.y() && p1.x() <= p2.x();}
+template <typename T> auto operator > (const Point<T>& p1, const Point<T>& p2) noexcept {return p1.y() >  p2.y() || p1.y() == p2.y() && p1.x() >  p2.x();}
+template <typename T> auto operator >=(const Point<T>& p1, const Point<T>& p2) noexcept {return p1.y() >  p2.y() || p1.y() == p2.y() && p1.x() >= p2.x();}
 
 // Other calculations
-template <typename T> auto abs(Point<T> const& p) noexcept {return Point<T>(abs(p.x()), abs(p.y()));}
-template <typename T> auto min(Point<T> const& p1, Point<T> const& p2) noexcept {return Point<T>(p1.x() <= p2.x() ? p1.x() : p2.x(), p1.y() <= p2.y() ? p1.y() : p2.y());}
-template <typename T> auto max(Point<T> const& p1, Point<T> const& p2) noexcept {return Point<T>(p1.x() >= p2.x() ? p1.x() : p2.x(), p1.y() >= p2.y() ? p1.y() : p2.y());}
+template <typename T> auto abs(const Point<T>& p) noexcept {return Point<T>(abs(p.x()), abs(p.y()));}
+template <typename T> auto min(const Point<T>& p1, const Point<T>& p2) noexcept {return Point<T>(p1.x() <= p2.x() ? p1.x() : p2.x(), p1.y() <= p2.y() ? p1.y() : p2.y());}
+template <typename T> auto max(const Point<T>& p1, const Point<T>& p2) noexcept {return Point<T>(p1.x() >= p2.x() ? p1.x() : p2.x(), p1.y() >= p2.y() ? p1.y() : p2.y());}
 
 // Stream output
-template <typename T> std::ostream& operator <<(std::ostream& stream, Point<T> const& p) {
+template <typename T> std::ostream& operator <<(std::ostream& stream, const Point<T>& p) {
     return stream << "(x:" << p.x() << ", y:" << p.y() << ')';
 }
 
@@ -97,7 +97,7 @@ namespace std {
     //    typedef Point<T> argument_type;
     //    typedef size_t result_type;
 
-        size_t operator()(Point<T> const& key) const {
+        size_t operator()(const Point<T>& key) const {
             return key.hash();
         }
     };

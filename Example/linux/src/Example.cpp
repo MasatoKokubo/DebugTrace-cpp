@@ -6,7 +6,7 @@
 
 DEBUG_TRACE_STATIC
 
-int main(int argc, char const* argv[]) {
+int main(int argc, const char* argv[]) {
     DEBUG_TRACE // for Debugging
     ClassA classA;
     classA.func1();

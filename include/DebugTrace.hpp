@@ -1,4 +1,4 @@
-﻿/// DebugTrace-cpp 1.0.1
+﻿/// DebugTrace-hpp 1.0.2
 /// (C) 2017 Masato Kokubo
 #ifndef DBUEGTRACE_HPP_
 #define DBUEGTRACE_HPP_
@@ -42,7 +42,7 @@
 		// Visual C++
 		#define DEBUG_TRACE debugtrace::DebugTrace trace(__FUNCSIG__, __FILE__, __LINE__);
 	#else
-		// etc
+		// Others
 		#define DEBUG_TRACE debugtrace::DebugTrace trace(__func__, __FILE__, __LINE__);
 	#endif
 	#define DEBUG_MESSAGE(message) debugtrace::DebugTrace::print(message, __FILE__, __LINE__);
@@ -62,26 +62,26 @@ namespace debugtrace {
 class DebugTrace {
 private:
 
-	static constexpr char const* libraryName       () {return "DebugTrace-cpp 1.0.1";}
-	static constexpr char const* enterString       () {return "Enter ";}
-	static constexpr char const* leaveString       () {return "Leave ";}
-	static constexpr char const* codeIndentString  () {return "| ";}
-	static constexpr char const* dataIndentString  () {return "  ";}
-	static constexpr char const* startString       () {return "{";}
-	static constexpr char const* endString         () {return "}";}
-	static constexpr char const* delimiter         () {return ", ";}
-	static constexpr char const* nameValueSeparator() {return " = ";}
-	static constexpr char const* pairSeparator     () {return ":";}
+	static constexpr const char* libraryName       () {return "DebugTrace-cpp 1.0.2";}
+	static constexpr const char* enterString       () {return "Enter ";}
+	static constexpr const char* leaveString       () {return "Leave ";}
+	static constexpr const char* codeIndentString  () {return "| ";}
+	static constexpr const char* dataIndentString  () {return "  ";}
+	static constexpr const char* startString       () {return "{";}
+	static constexpr const char* endString         () {return "}";}
+	static constexpr const char* delimiter         () {return ", ";}
+	static constexpr const char* nameValueSeparator() {return " = ";}
+	static constexpr const char* pairSeparator     () {return ":";}
 
-	static int const _maxCodeIndents = 40;
-	static int const _maxDataIndents = 40;
+	static const int _maxCodeIndents = 40;
+	static const int _maxDataIndents = 40;
 	static bool _inited;
 	static std::ostream& stream() {return std::cerr;}
 	static int _codeNestLevel;
 	static int _beforeCodeNestLevel;
 	static int _dataNestLevel;
 
-	char const* _funcName = nullptr;
+	const char* _funcName = nullptr;
 
 	static void init() noexcept {
 		if (!_inited) {
@@ -100,7 +100,7 @@ public:
 	/// @param funcName the function name
 	/// @param fileName the source file name of the code that called this constructor
 	/// @param lineNumber the line number of the code that called this function
-	DebugTrace(char const funcName[], char const fileName[], int lineNumber) noexcept {
+	DebugTrace(const char funcName[], const char fileName[], int lineNumber) noexcept {
 		init();
 		_funcName = funcName;
 
@@ -142,7 +142,7 @@ private:
 		struct std::tm dateTime;
 		localtime_s(&dateTime, &now);
 	#else
-		// Other
+		// Others
 		auto dateTime = *std::localtime(&now);
 	#endif
 		stream()
@@ -160,7 +160,7 @@ public:
 	/// @param message the message
 	/// @param fileName the source file name of the code that called this function
 	/// @param lineNumber the line number of the code that called this function
-	static void print(char const message[], char const fileName[], int lineNumber) noexcept {
+	static void print(const char message[], const char fileName[], int lineNumber) noexcept {
 		printSub([&] {stream() << message;}, fileName, lineNumber);
 	}
 
@@ -170,7 +170,7 @@ public:
 	/// @param fileName the source file name of the code that called this function
 	/// @param lineNumber the line number of the code that called this function
 	template <typename T>
-	static void print(char const name[], T const& value, char const fileName[], int lineNumber) noexcept {
+	static void print(const char name[], const T& value, const char fileName[], int lineNumber) noexcept {
 		printSub([&] {
 			stream() << name << nameValueSeparator();
 			printValue(value);
@@ -184,7 +184,7 @@ private:
 	/// @param fileName the source file name of the code that called this function
 	/// @param lineNumber the line number of the code that called this function
 	template <typename Function>
-	static void printSub(Function outputer, char const fileName[] = "", int lineNumber = 0) noexcept {
+	static void printSub(Function outputer, const char fileName[] = "", int lineNumber = 0) noexcept {
 		_dataNestLevel = 0;
 		printDateTime();
 		printIndent();
@@ -192,7 +192,7 @@ private:
 		outputer();
 
 		if (fileName[0] != '\0') {
-			char const *fileName2 = std::strrchr(fileName, '/');
+			const char *fileName2 = std::strrchr(fileName, '/');
 			if (fileName2 == nullptr) {
 				fileName2 = std::strrchr(fileName, '\\');
 				if (fileName2 == nullptr)
@@ -211,7 +211,7 @@ private:
 	/// Outputs a string representation of the type of the value.
 	/// @param value the value to output
 	template <typename T>
-	static void printType(T const& value) noexcept {
+	static void printType(const T& value) noexcept {
 	#if defined _MSC_VER
 		stream() << '(' << typeid(value).name() << ')';
 	#else
@@ -232,9 +232,23 @@ private:
 
 	/// Outputs a string representation of the value.
 	/// @param pointer the pointer of the value to output
+	/// @since 1.0.2
+	template <typename T>
+	static void printValue(T* pointer) noexcept {
+		printType(pointer);
+		if (pointer == nullptr)
+			stream() << "nullptr";
+		else {
+			stream() << '&';
+			printValue(*pointer);
+		}
+	}
+
+	/// Outputs a string representation of the value.
+	/// @param pointer the pointer of the value to output
 	/// @since 1.0.1
 	template <typename T>
-	static void printValue(T const* pointer) noexcept {
+	static void printValue(const T* pointer) noexcept {
 		printType(pointer);
 		if (pointer == nullptr)
 			stream() << "nullptr";
@@ -247,7 +261,7 @@ private:
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
 	template <typename T>
-	static void printValue(T const& value) noexcept {
+	static void printValue(const T& value) noexcept {
 		printType(value);
 		stream() << value;
 	}
@@ -255,7 +269,7 @@ private:
 	/// Outputs a string representation of the container object.
 	/// @param container the container object to output
 	template <class C>
-	static void printContainer(C const& container) noexcept {
+	static void printContainer(const C& container) noexcept {
 		bool multiLine = container.size() >= 2;
 
 		printType(container);
@@ -282,92 +296,99 @@ private:
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(bool const& value) noexcept {
+	static void printValue(const bool& value) noexcept {
 		stream() << (value ? "true" : "false");
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(char const& value) noexcept {
+	static void printValue(const char& value) noexcept {
 		stream() << '\'' << value << '\'';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(signed char const& value) noexcept {
+	static void printValue(const signed char& value) noexcept {
 		stream() << "(signed char)'" << value <<  '\'';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(unsigned char const& value) noexcept {
+	static void printValue(const unsigned char& value) noexcept {
 		stream() << "(unsigned char)'" << value << '\'';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(short const& value) noexcept {
+	static void printValue(const short& value) noexcept {
 		stream() << "(unsigned short)" << value;
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(unsigned short const& value) noexcept {
+	static void printValue(const unsigned short& value) noexcept {
 		stream() << "(unsigned short)" << value;
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(int const& value) noexcept {
+	static void printValue(const int& value) noexcept {
 		stream() << value;
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(unsigned int const& value) noexcept {
+	static void printValue(const unsigned int& value) noexcept {
 		stream() << value << 'u';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(long const& value) noexcept {
+	static void printValue(const long& value) noexcept {
 		stream() << value << 'L';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(unsigned long const& value) noexcept {
+	static void printValue(const unsigned long& value) noexcept {
 		stream() << value << "uL";
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(long long const& value) noexcept {
+	static void printValue(const long long& value) noexcept {
 		stream() << value << "LL";
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(unsigned long long const& value) noexcept {
+	static void printValue(const unsigned long long& value) noexcept {
 		stream() << value << "uLL";
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(float const& value) noexcept {
+	static void printValue(const float& value) noexcept {
 		stream() << value << 'F';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(double const& value) noexcept {
+	static void printValue(const double& value) noexcept {
 		stream() << value;
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(long double const& value) noexcept {
+	static void printValue(const long double& value) noexcept {
 		stream() << value << 'L';
+	}
+
+	/// Outputs a string representation of the value.
+	/// @param value the value to output
+	/// @since 1.0.2
+	static void printValue(const wchar_t& value) noexcept {
+		stream() << "(wchar_t)" << value;
 	}
 
 	/// Outputs a string representation of the value.
@@ -399,41 +420,51 @@ private:
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(char const* const& value) noexcept {
+	/// @since 1.0.2
+	static void printValue(wchar_t* const& value) noexcept {
 		if (value == nullptr)
-			stream() << "(char const*)nullptr";
+			stream() << "(wchar_t*)nullptr";
+		else
+			stream() << "(wchar_t*)\"" << value << '"';
+	}
+
+	/// Outputs a string representation of the value.
+	/// @param value the value to output
+	static void printValue(const char* const& value) noexcept {
+		if (value == nullptr)
+			stream() << "(const char*)nullptr";
 		else
 			stream() << '"' << value << '"';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(signed char const* const& value) noexcept {
+	static void printValue(const signed char* const& value) noexcept {
 		if (value == nullptr)
-			stream() << "(signed char const*)nullptr";
+			stream() << "(const signed char*)nullptr";
 		else
-			stream() << "(signed char const*)\"" << value << '"';
+			stream() << "(const signed char*)\"" << value << '"';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(unsigned char const* const& value) noexcept {
+	static void printValue(const unsigned char* const& value) noexcept {
 		if (value == nullptr)
-			stream() << "(unsigned char const*)nullptr";
+			stream() << "(const unsigned char*)nullptr";
 		else
-			stream() << "(unsigned char const*)\"" << value << '"';
+			stream() << "(const unsigned char*)\"" << value << '"';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
-	static void printValue(std::string const& value) noexcept {
+	static void printValue(const std::string& value) noexcept {
 		stream() << "(std::string)\"" << value.c_str() << '"';
 	}
 
 	/// Outputs a string representation of the value.
 	/// @param value the value to output
 	template <typename T1, typename T2>
-	static void printValue(std::pair<T1, T2> const& value) noexcept {
+	static void printValue(const std::pair<T1, T2>& value) noexcept {
 		stream() << value.first << pairSeparator() << value.second;
 	}
 
@@ -441,21 +472,21 @@ private:
 	/// Outputs a string representation of the container object.
 	/// @param container the container object to output
 	template <typename T, size_t N>
-	static void printValue(std::array<T, N> const& container) noexcept {
+	static void printValue(const std::array<T, N>& container) noexcept {
 		printContainer(container);
 	}
 
 	/// Outputs a string representation of the container object.
 	/// @param container the container object to output
 	template <typename T, class Allocator = std::allocator<T>>
-	static void printValue(std::deque<T, Allocator> const& container) noexcept {
+	static void printValue(const std::deque<T, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 
 	/// Outputs a string representation of the container object.
 	/// @param container the container object to output
 	template <typename T, class Allocator = std::allocator<T>>
-	static void printValue(std::list<T, Allocator> const& container) noexcept {
+	static void printValue(const std::list<T, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 
@@ -467,7 +498,7 @@ private:
 		class Compare = std::less<Key>,
 		class Allocator = std::allocator<std::pair<Key const, T>>
 	>
-	static void printValue(std::map<Key, T, Compare, Allocator> const& container) noexcept {
+	static void printValue(const std::map<Key, T, Compare, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 
@@ -479,20 +510,7 @@ private:
 		class Compare = std::less<Key>,
 		class Allocator = std::allocator<std::pair<Key const, T>>
 	>
-	static void printValue(std::multimap<Key, T, Compare, Allocator> const& container) noexcept {
-		printContainer(container);
-	}
-
-	/// Outputs a string representation of the container object.
-	/// @param container the container object to output
-	template <
-		typename Key,
-		typename T,
-		class Hash = std::hash<Key>,
-		class Pred = std::equal_to<Key>,
-		class Allocator = std::allocator<std::pair<Key const, T>>
-	>
-	static void printValue(std::unordered_map<Key, T, Hash, Pred, Allocator> const& container) noexcept {
+	static void printValue(const std::multimap<Key, T, Compare, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 
@@ -505,7 +523,20 @@ private:
 		class Pred = std::equal_to<Key>,
 		class Allocator = std::allocator<std::pair<Key const, T>>
 	>
-	static void printValue(std::unordered_multimap<Key, T, Hash, Pred, Allocator> const& container) noexcept {
+	static void printValue(const std::unordered_map<Key, T, Hash, Pred, Allocator>& container) noexcept {
+		printContainer(container);
+	}
+
+	/// Outputs a string representation of the container object.
+	/// @param container the container object to output
+	template <
+		typename Key,
+		typename T,
+		class Hash = std::hash<Key>,
+		class Pred = std::equal_to<Key>,
+		class Allocator = std::allocator<std::pair<Key const, T>>
+	>
+	static void printValue(const std::unordered_multimap<Key, T, Hash, Pred, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 
@@ -516,7 +547,7 @@ private:
 		class Compare = std::less<Key>,
 		class Allocator = std::allocator<Key>
 	>
-	static void printValue(std::set<Key, Compare, Allocator> const& container) noexcept {
+	static void printValue(const std::set<Key, Compare, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 
@@ -527,7 +558,7 @@ private:
 		class Compare = std::less<Key>,
 		class Allocator = std::allocator<Key>
 	>
-	static void printValue(std::multiset<Key, Compare, Allocator> const& container) noexcept {
+	static void printValue(const std::multiset<Key, Compare, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 
@@ -539,7 +570,7 @@ private:
 		class Pred = std::equal_to<Key>,
 		class Allocator = std::allocator<Key>
 	>
-	static void printValue(std::unordered_set<Key, Hash, Pred, Allocator> const& container) noexcept {
+	static void printValue(const std::unordered_set<Key, Hash, Pred, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 
@@ -551,14 +582,14 @@ private:
 		class Pred = std::equal_to<Key>,
 		class Allocator = std::allocator<Key>
 	>
-	static void printValue(std::unordered_multiset<Key, Hash, Pred, Allocator> const& container) noexcept {
+	static void printValue(const std::unordered_multiset<Key, Hash, Pred, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 
 	/// Outputs a string representation of the container object.
 	/// @param container the container object to output
 	template <typename T, class Allocator = std::allocator<T>>
-	static void printValue(std::vector<T, Allocator> const& container) noexcept {
+	static void printValue(const std::vector<T, Allocator>& container) noexcept {
 		printContainer(container);
 	}
 };

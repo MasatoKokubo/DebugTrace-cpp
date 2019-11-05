@@ -53,7 +53,7 @@ void ClassA::func3() const noexcept {
     DEBUG_PRINT(array2) // for Debugging
 
     // std::deque<T>
-    std::deque<Point<int>> const deque1 = {p1, p2, p3, p4};
+    const std::deque<Point<int>> deque1 = {p1, p2, p3, p4};
     DEBUG_PRINT(deque1) // for Debugging
 
     // std::list<T>
@@ -70,7 +70,7 @@ void ClassA::func3() const noexcept {
     DEBUG_PRINT(map1) // for Debugging
 
     // std::map<Key, T, Compare>
-    std::map<int, Point<int>, std::greater<int>> const map2 = {
+    const std::map<int, Point<int>, std::greater<int>> map2 = {
         std::make_pair(10, p1),
         std::make_pair(20, p2),
         std::make_pair(30, p3),
@@ -88,7 +88,7 @@ void ClassA::func3() const noexcept {
     DEBUG_PRINT(multimap1) // for Debugging
 
     // std::multimap<Key, T, Compare>
-    std::multimap<int, Point<int>, std::greater<int>> const multimap2 = {
+    const std::multimap<int, Point<int>, std::greater<int>> multimap2 = {
         std::make_pair(10, p1),
         std::make_pair(20, p2),
         std::make_pair(30, p3),
@@ -106,7 +106,7 @@ void ClassA::func3() const noexcept {
     DEBUG_PRINT(unordered_map1) // for Debugging
 
     // std::unordered_multimap1<Key, T>
-    std::unordered_multimap<int, Point<int>> const unordered_multimap1 = {
+    const std::unordered_multimap<int, Point<int>> unordered_multimap1 = {
         std::make_pair(1, p1),
         std::make_pair(2, p2),
         std::make_pair(3, p3),
@@ -119,7 +119,7 @@ void ClassA::func3() const noexcept {
     DEBUG_PRINT(set1) // for Debugging
 
     // std::set<Key, Compare>
-    std::set<Point<int>, std::greater<Point<int>>> const set2 = {p1, p2, p3, p4};
+    const std::set<Point<int>, std::greater<Point<int>>> set2 = {p1, p2, p3, p4};
     DEBUG_PRINT(set2) // for Debugging
 
     // std::multiset<Key>
@@ -127,7 +127,7 @@ void ClassA::func3() const noexcept {
     DEBUG_PRINT(multiset1) // for Debugging
 
     // std::multiset<Key, Compare>
-    std::multiset<Point<int>, std::greater<Point<int>>> const multiset2 = {p1, p2, p3, p4};
+    const std::multiset<Point<int>, std::greater<Point<int>>> multiset2 = {p1, p2, p3, p4};
     DEBUG_PRINT(multiset2) // for Debugging
 
     // std::unordered_set<Key>
@@ -135,7 +135,7 @@ void ClassA::func3() const noexcept {
     DEBUG_PRINT(unordered_set1) // for Debugging
 
     // std::unordered_multiset<T>
-    std::unordered_multiset<Point<int>> const unordered_multiset1 = {p1, p2, p3, p4};
+    const std::unordered_multiset<Point<int>> unordered_multiset1 = {p1, p2, p3, p4};
     DEBUG_PRINT(unordered_multiset1) // for Debugging
 
     // std::vector<T>
