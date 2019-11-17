@@ -31,11 +31,8 @@
 # etc.
 *.db
 
-Example/linux/Debug/
-
-Example/windows/.vs/
-Example/windows/ipch/
-Example/windows/x64/
+**/.vs/
+**/Debug/
 
 Example/macos/DebugTraceExample.xcodeproj/project.xcworkspace/
 Example/macos/DebugTraceExample.xcodeproj/xcuserdata/
