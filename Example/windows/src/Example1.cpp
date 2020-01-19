@@ -1,4 +1,4 @@
-﻿/// Example1.cpp 
+/// Example1.cpp 
 /// (C) 2017 Masato Kokubo
 #include "Example.hpp"
 #include "DebugTrace.hpp"

@@ -1,4 +1,4 @@
-﻿/// Example4.cpp 
+/// Example4.cpp 
 /// (C) 2017 Masato Kokubo
 #include <complex>
 #include "Example.hpp"

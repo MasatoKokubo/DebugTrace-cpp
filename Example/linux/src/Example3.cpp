@@ -1,6 +1,5 @@
-﻿/// Example3.cpp 
+/// Example3.cpp 
 /// (C) 2017 Masato Kokubo
-#include "stdafx.h"
 #include <array>
 #include <deque>
 #include <list>

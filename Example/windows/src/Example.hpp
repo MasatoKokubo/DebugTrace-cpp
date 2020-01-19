@@ -1,4 +1,4 @@
-﻿/// ConsoleTest.hpp
+/// ConsoleTest.hpp
 /// (C) 2017 Masato Kokubo
 
 #include <iostream>

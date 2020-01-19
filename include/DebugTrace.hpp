@@ -1,4 +1,4 @@
-﻿/// DebugTrace-hpp 1.1.0-beta1
+﻿/// DebugTrace-hpp 1.1.0-beta2
 /// (C) 2017 Masato Kokubo
 #ifndef DBUEGTRACE_HPP_
 #define DBUEGTRACE_HPP_
@@ -27,8 +27,10 @@
     #include <unordered_set>
     #include <vector>
     #if defined _WIN32
+        // Windows
         #include <windows.h>
     #endif
+    #include <cuchar>
 
     #if defined CP_ACP // if Windows
         #define DEBUG_TRACE_STATIC \
@@ -39,7 +41,7 @@
             int DebugTrace::_dataNestLevel;\
             unsigned int DebugTrace::_codePage = CP_ACP;\
             } // namespace debugtrace
-    #else // defined CP_ACP
+    #else
         #define DEBUG_TRACE_STATIC \
             namespace debugtrace {\
             bool DebugTrace::_inited;\
@@ -47,7 +49,7 @@
             int DebugTrace::_beforeCodeNestLevel;\
             int DebugTrace::_dataNestLevel;\
             } // namespace debugtrace
-    #endif // defined CP_ACP
+    #endif
 
     #if defined __PRETTY_FUNCTION__
         // GCC, Clang
@@ -476,7 +478,7 @@ private:
         if (value == nullptr)
             stream() << "(wchar_t*)nullptr";
         else {
-            auto string = to_string((std::wstring(value)));
+            auto string = to_string(std::wstring(value));
             stream() << "(wchar_t*)\"" << string.c_str() << '"';
         }
     }
@@ -488,7 +490,7 @@ private:
         if (value == nullptr)
             stream() << "(const wchar_t*)nullptr";
         else {
-            auto string = to_string((std::wstring(value)));
+            auto string = to_string(std::wstring(value));
             stream() << "(const wchar_t*)\"" << string.c_str() << '"';
         }
     }
@@ -500,7 +502,7 @@ private:
         if (value == nullptr)
             stream() << "(char16_t*)nullptr";
         else {
-            auto string = to_string((std::u16string(value)));
+            auto string = to_string(std::u16string(value));
             stream() << "(char16_t*)\"" << string.c_str() << '"';
         }
     }
@@ -512,12 +514,36 @@ private:
         if (value == nullptr)
             stream() << "(const char16_t*)nullptr";
         else {
-            auto string = to_string((std::u16string(value)));
+            auto string = to_string(std::u16string(value));
             stream() << "(const char16_t*)\"" << string.c_str() << '"';
         }
     }
 
- #if _HAS_CHAR8_T == 1
+    /// Outputs a string representation of the value.
+    /// @param value the value to output
+    /// @since 1.1.0
+    static void printValue(char32_t* const& value) noexcept {
+        if (value == nullptr)
+            stream() << "(char32_t*)nullptr";
+        else {
+            auto string = to_string(std::u32string(value));
+            stream() << "(char32_t*)\"" << string.c_str() << '"';
+        }
+    }
+
+    /// Outputs a string representation of the value.
+    /// @param value the value to output
+    /// @since 1.1.0
+    static void printValue(const char32_t* const& value) noexcept {
+        if (value == nullptr)
+            stream() << "(const char32_t*)nullptr";
+        else {
+            auto string = to_string(std::u32string(value));
+            stream() << "(const char32_t*)\"" << string.c_str() << '"';
+        }
+    }
+
+#if defined __cpp_char8_t
     /// Outputs a string representation of the value.
     /// @param value the value to output
     /// @since 1.1.0
@@ -554,11 +580,27 @@ private:
     /// @return a converted std::string
     /// @since 1.1.0
     static std::string to_string(const std::wstring& wstring) noexcept {
+    #if defined _WIN32
+        // Windows
         auto wstringLen = (int)wstring.length();
         auto stringLen = WideCharToMultiByte(_codePage, 0, wstring.c_str(), wstringLen, nullptr, 0, 0, 0);
         std::string string(stringLen, '\0');
         WideCharToMultiByte(_codePage, 0, wstring.c_str(), wstringLen, &string[0], stringLen, 0, 0);
         return string;
+    #else
+        // Non-Windows
+        mbstate_t mbstate{};
+        char char_buf[wstring.length() * sizeof(std::wstring::value_type) + 1];
+        auto char_ptr = char_buf;
+        for (auto wchar : wstring) {
+            auto converted_count = wcrtomb(char_ptr, wchar, &mbstate);
+            if (converted_count == (size_t)-1)
+                return "<Cannot convert the wstring to string>";
+            char_ptr += converted_count;
+        }
+        *char_ptr = '\0';
+        return char_buf;        
+    #endif
     }
 
     /// Outputs a string representation of the value.
@@ -572,11 +614,27 @@ private:
     /// @param u16string the std::u16string
     /// @since 1.1.0
     static std::string to_string(const std::u16string& u16string) noexcept {
+    #if defined _WIN32
+        // Windows
         auto u16stringLen = (int)u16string.length();
         auto stringLen = WideCharToMultiByte(_codePage, 0, (LPCWCH)u16string.c_str(), u16stringLen, nullptr, 0, 0, 0);
         std::string string(stringLen, '\0');
         WideCharToMultiByte(_codePage, 0, (LPCWCH)u16string.c_str(), u16stringLen, &string[0], stringLen, 0, 0);
         return string;
+    #else
+        // Non-Windows
+        mbstate_t mbstate{};
+        char char_buf[u16string.length() * sizeof(std::u16string::value_type) + 1];
+        auto char_ptr = char_buf;
+        for (auto char16 : u16string) {
+            auto converted_count = c16rtomb(char_ptr, char16, &mbstate);
+            if (converted_count == (size_t)-1)
+                return "<Cannot convert the u16string to string>";
+            char_ptr += converted_count;
+        }
+        *char_ptr = '\0';
+        return char_buf;        
+    #endif
     }
 
     /// Outputs a string representation of the value.
@@ -586,11 +644,41 @@ private:
         stream() << "(std::u16string)\"" << to_string(value).c_str() << '"';
     }
 
-#if _HAS_CHAR8_T == 1
+    /// Convert std::u32string to std::string.
+    /// @param u32string the std::u32string
+    /// @since 1.1.0
+    static std::string to_string(const std::u32string& u32string) noexcept {
+#if defined _WIN32
+        return "<Unimplemented(string <- u32string)>";
+#else
+        mbstate_t mbstate{};
+        char char_buf[u32string.length() * sizeof(std::u32string::value_type) + 1];
+        auto char_ptr = char_buf;
+        for (auto char32 : u32string) {
+            auto converted_count = c32rtomb(char_ptr, char32, &mbstate);
+            if (converted_count == (size_t)-1)
+                return "<Cannot convert the u32string to string>";
+            char_ptr += converted_count;
+        }
+        *char_ptr = '\0';
+        return char_buf;        
+#endif
+    }
+
+    /// Outputs a string representation of the value.
+    /// @param value the value to output
+    /// @since 1.1.0
+    static void printValue(const std::u32string& value) noexcept {
+        stream() << "(std::u32string)\"" << to_string(value).c_str() << '"';
+    }
+
+#if defined __cpp_char8_t
     /// Convert std::u8string to std::string.
     /// @param u8string the std::u8string
     /// @since 1.1.0
     static std::string to_string(const std::u8string& u8string) noexcept {
+    #if defined _WIN32
+        // Windows
         if (_codePage == CP_UTF8)
             return std::string((const char *)u8string.c_str());
 
@@ -603,6 +691,10 @@ private:
         std::string string(stringLen, '\0');
         WideCharToMultiByte(_codePage, 0, wstring.c_str(), wstringLen, &string[0], stringLen, 0, 0);
         return string;
+    #else
+        // Non-Windows
+        return std::string((const char *)u8string.c_str());
+    #endif
     }
 
     /// Outputs a string representation of the value.
