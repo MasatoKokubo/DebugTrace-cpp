@@ -78,7 +78,7 @@ namespace debugtrace {
 class DebugTrace {
 private:
 
-    static constexpr const char* libraryName       () {return "DebugTrace-cpp 1.1.0-beta1";}
+    static constexpr const char* libraryName       () {return "DebugTrace-cpp 1.1.0-beta2";}
     static constexpr const char* enterString       () {return "Enter ";}
     static constexpr const char* leaveString       () {return "Leave ";}
     static constexpr const char* codeIndentString  () {return "| ";}
