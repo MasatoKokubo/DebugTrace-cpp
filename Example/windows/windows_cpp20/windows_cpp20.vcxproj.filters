@@ -35,7 +35,7 @@
     <ClInclude Include="..\src\Example.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\DebugTrace.hpp">
+    <ClInclude Include="..\..\..\include\debugtrace.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

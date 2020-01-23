@@ -1,11 +1,11 @@
 /// Example1.cpp 
 /// (C) 2017 Masato Kokubo
 #include "Example.hpp"
-#include "DebugTrace.hpp"
+#include "debugtrace.hpp"
 
 /// func1
 void ClassA::func1() const noexcept {
-    DEBUG_TRACE // for Debugging
+	DEBUGTRACE_ENTER // for Debugging
     bool const         bool0   = false;
     bool               bool1   = true;
     const char         char1   = 'A';
@@ -27,24 +27,24 @@ void ClassA::func1() const noexcept {
     double             double1 = -2222.2222;
     long double        ldouble1 = -333333.333333L;
 
-    DEBUG_PRINT(bool0  ) // for Debugging
-    DEBUG_PRINT(bool1  ) // for Debugging
-    DEBUG_PRINT(char1  ) // for Debugging
-    DEBUG_PRINT(schar1 ) // for Debugging
-    DEBUG_PRINT(uchar1 ) // for Debugging
-    DEBUG_PRINT(short1 ) // for Debugging
-    DEBUG_PRINT(sshort1) // for Debugging
-    DEBUG_PRINT(ushort1) // for Debugging
-    DEBUG_PRINT(int1   ) // for Debugging
-    DEBUG_PRINT(sint1  ) // for Debugging
-    DEBUG_PRINT(uint1  ) // for Debugging
-    DEBUG_PRINT(long1  ) // for Debugging
-    DEBUG_PRINT(slong1 ) // for Debugging
-    DEBUG_PRINT(ulong1 ) // for Debugging
-    DEBUG_PRINT(llong1 ) // for Debugging
-    DEBUG_PRINT(sllong1) // for Debugging
-    DEBUG_PRINT(ullong1) // for Debugging
-    DEBUG_PRINT(float1 ) // for Debugging
-    DEBUG_PRINT(double1) // for Debugging
-    DEBUG_PRINT(ldouble1) // for Debugging
+    DEBUGTRACE_PRINT(bool0  ) // for Debugging
+    DEBUGTRACE_PRINT(bool1  ) // for Debugging
+    DEBUGTRACE_PRINT(char1  ) // for Debugging
+    DEBUGTRACE_PRINT(schar1 ) // for Debugging
+    DEBUGTRACE_PRINT(uchar1 ) // for Debugging
+    DEBUGTRACE_PRINT(short1 ) // for Debugging
+    DEBUGTRACE_PRINT(sshort1) // for Debugging
+    DEBUGTRACE_PRINT(ushort1) // for Debugging
+    DEBUGTRACE_PRINT(int1   ) // for Debugging
+    DEBUGTRACE_PRINT(sint1  ) // for Debugging
+    DEBUGTRACE_PRINT(uint1  ) // for Debugging
+    DEBUGTRACE_PRINT(long1  ) // for Debugging
+    DEBUGTRACE_PRINT(slong1 ) // for Debugging
+    DEBUGTRACE_PRINT(ulong1 ) // for Debugging
+    DEBUGTRACE_PRINT(llong1 ) // for Debugging
+    DEBUGTRACE_PRINT(sllong1) // for Debugging
+    DEBUGTRACE_PRINT(ullong1) // for Debugging
+    DEBUGTRACE_PRINT(float1 ) // for Debugging
+    DEBUGTRACE_PRINT(double1) // for Debugging
+    DEBUGTRACE_PRINT(ldouble1) // for Debugging
 }

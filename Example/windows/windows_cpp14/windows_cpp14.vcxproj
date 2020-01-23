@@ -26,7 +26,7 @@
     <ClCompile Include="..\src\Example4.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\DebugTrace.hpp" />
+    <ClInclude Include="..\..\..\include\debugtrace.hpp" />
     <ClInclude Include="..\src\Example.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

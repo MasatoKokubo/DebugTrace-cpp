@@ -1,12 +1,12 @@
 /// Example.cpp 
 /// (C) 2017 Masato Kokubo
 #include "Example.hpp"
-#include "DebugTrace.hpp"
+#include "debugtrace.hpp"
 
-DEBUG_TRACE_STATIC
+DEBUGTRACE_VARIABLES
 
 int main(int argc, const char* argv[]) {
-    DEBUG_TRACE // for Debugging
+    DEBUGTRACE_ENTER // for Debugging
     ClassA classA;
     classA.func1();
     classA.func2();
