@@ -1,6 +1,7 @@
 /// ConsoleTest.hpp
 /// (C) 2017 Masato Kokubo
 
+#include <complex>
 #include <iostream>
 #include <limits>
 
@@ -53,7 +54,7 @@ template <typename T> class Point {
 
         /// Reutrns the hash value.
         size_t hash() const {
-            return (size_t)(_x * 31 + _y);
+            return (size_t)((size_t)_x * 31 + (size_t)_y);
         }
 };
 
@@ -87,9 +88,18 @@ template <typename T> auto abs(const Point<T>& p) noexcept {return Point<T>(abs(
 template <typename T> auto min(const Point<T>& p1, const Point<T>& p2) noexcept {return Point<T>(p1.x() <= p2.x() ? p1.x() : p2.x(), p1.y() <= p2.y() ? p1.y() : p2.y());}
 template <typename T> auto max(const Point<T>& p1, const Point<T>& p2) noexcept {return Point<T>(p1.x() >= p2.x() ? p1.x() : p2.x(), p1.y() >= p2.y() ? p1.y() : p2.y());}
 
-// Stream output
-template <typename T> std::ostream& operator <<(std::ostream& stream, const Point<T>& p) {
-    return stream << "(x:" << p.x() << ", y:" << p.y() << ')';
+// to_string
+namespace std {
+    template <typename T>
+    string to_string(const Point<T>& p) {
+        return '(' + to_string(p.x()) + ", " + to_string(p.y()) + ')';
+    }
+
+    template <typename T>
+    string to_string(const complex<T>& comp) {
+        return "(real:" + to_string(comp.real()) + ", imag:" + to_string(comp.imag()) + ')';
+    }
+
 }
 
 namespace std {

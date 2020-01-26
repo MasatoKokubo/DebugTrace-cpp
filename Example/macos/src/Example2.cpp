@@ -2,7 +2,7 @@
 /// (C) 2017 Masato Kokubo
 #include <string>
 #include "Example.hpp"
-#include "debugtrace.hpp"
+#include "../../../include/debugtrace.hpp"
 
 /// ClassA::func2
 void ClassA::func2() const noexcept {

@@ -1,7 +1,7 @@
 /// Example.cpp 
 /// (C) 2017 Masato Kokubo
 #include "Example.hpp"
-#include "debugtrace.hpp"
+#include "../../../include/debugtrace.hpp"
 
 DEBUGTRACE_VARIABLES
 

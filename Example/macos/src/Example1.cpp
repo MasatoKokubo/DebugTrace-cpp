@@ -1,7 +1,7 @@
 /// Example1.cpp 
 /// (C) 2017 Masato Kokubo
 #include "Example.hpp"
-#include "debugtrace.hpp"
+#include "../../../include/debugtrace.hpp"
 
 /// func1
 void ClassA::func1() const noexcept {
