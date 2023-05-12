@@ -859,7 +859,7 @@ inline void print_message(std::string message, const char file_name[] = "", int 
         if (file_name2 == nullptr) {
             file_name2 = std::strrchr(file_name, '\\');
             if (file_name2 == nullptr)
-                file_name2 = file_name;
+                file_name2 = const_cast<char*>(file_name);
             else
                 ++file_name2;
         } else
